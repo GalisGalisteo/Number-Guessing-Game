@@ -1,15 +1,45 @@
-// Good luck!
+const correctNumber = Math.floor(Math.random() * 100) + 1;
+let remainingAttempts = 10;
+const previousGuesses = [];
 
-// Variables de estado iniciales. Puede que falta alguna...
+const remainingGuessesNode = document.querySelector('#remaining-guesses');
+remainingGuessesNode.textContent = remainingAttempts;
 
-let estoyJugando = true;
-let numeroCorrecto = Math.floor(Math.random() * 100);
-let numIntentos = 10;
+document.querySelector("form").addEventListener("submit", (event) => {
 
-// Actualizar el innerHTML del nodo adecuado con el número de intentos iniciales
+  event.preventDefault();
 
-document.querySelector("form").addEventListener("submit", (e) => {
-  e.preventDefault(); // Impedimos que el formulario haga un petición GET
+  const userInputNode = document.querySelector("#guessField");
+  const lowOrHiNode = document.querySelector('#low-or-hi');
+  const previousGuessesNode = document.querySelector('#previous-guesses');
+  const submitNode = document.querySelector('#subt');
+  const resultParamNode = document.querySelector('#result-param');
+  const userValueInput = +userInputNode.value;
+  remainingAttempts--;
 
-  // Comprobar si el número que ha puesto el usuario es mayor o menor que el numeroCorrecto. Tomar decisiones
+  if (remainingAttempts === 0) {
+    userInputNode.disabled = true;
+    submitNode.style.display = "none";
+    const playAgainMessage = document.createElement('div');
+    playAgainMessage.classList.add('play-again');
+    playAgainMessage.textContent = 'Play Again';
+    resultParamNode.appendChild(playAgainMessage);
+    playAgainMessage.addEventListener('click', () => {
+      location.reload();
+    })
+  } else if (userValueInput < correctNumber) {
+    lowOrHiNode.textContent = 'Too low, try again!';
+  } else if (userValueInput > correctNumber) {
+    lowOrHiNode.textContent = 'Too high, try again!';
+  } else if (userValueInput === correctNumber) {
+    lowOrHiNode.textContent = 'Congratulations, you got it!';
+    userInputNode.disabled = true;
+    submitNode.style.display = "none";
+  }
+
+  remainingGuessesNode.textContent = remainingAttempts;
+  previousGuesses.push(userValueInput);
+  previousGuessesNode.textContent = previousGuesses.join(' - ');
+  userInputNode.value = '';
+  userInputNode.focus();
 });

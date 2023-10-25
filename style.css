@@ -43,6 +43,10 @@ button {
     /* margin-left: 75px; */
 }
 
+#subt:hover {
+    cursor: pointer;
+}
+
 #guessField {
     color: #000;
     width: 550px;
@@ -65,6 +69,30 @@ button {
 
 .guesses {
     background-color: #12aab4;
+}
+
+.lowOrHi {
+    background-color: #7b3056;
+    font-size: 1.5rem;
+    color: #fff;
+    text-align: center;
+}
+
+.play-again {
+    background-color: #7b3056;
+    font-size: 1.5rem;
+    color: #fff;
+    text-align: center;
+    width: 30%;
+    margin: 0 auto;
+    border-radius: 6px;
+    padding: 1rem;
+}
+
+.play-again:hover {
+    cursor: pointer;
+    background-color: green;
+    color: #000000;
 }
 
 #wrapper {
